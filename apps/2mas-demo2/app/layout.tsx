@@ -67,7 +67,7 @@ export default function RootLayout({
           <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
             <h1>DEMO 2</h1>
             <a
-              href={`/login?returnUrl=${appDomain}/`}
+              href={`/login?returnUrl=${appDomain}/demo2`}
               className="px-4 py-2 bg-green-400"
             >
               Login
