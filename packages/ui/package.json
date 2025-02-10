@@ -6,7 +6,8 @@
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
     "./code": "./src/code.tsx",
-    "./login-link": "./src/login-link.tsx"
+    "./login-link": "./src/login-link.tsx",
+    "./logout-link": "./src/logout-link.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

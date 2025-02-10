@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 // import { LoginLink } from "@repo/ui";
-import { LoginLink } from "@repo/ui/login-link";
+import { LoginLink, LogoutLink } from "@repo/ui/login-link";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
@@ -70,6 +70,8 @@ export default function RootLayout({
             <h1>DEMO 2</h1>
 
             <LoginLink appDomain={appDomain} />
+            <LogoutLink appDomain={appDomain} />
+
             {/* <a
               href={`/login?returnUrl=${appDomain}/demo2`}
               className="px-4 py-2 bg-green-400"
