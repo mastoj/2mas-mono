@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+console.log("==> Auth Domain:", process.env.AUTH_DOMAIN);
+
 const nextConfig: NextConfig = {
   /* config options here */
   assetPrefix: "/2mas-demo-static",
