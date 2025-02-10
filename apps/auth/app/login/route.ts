@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
+// Docs: https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow
+
 // Creates the login url for entra id app
 const getLoginUrl = (returnUrl: string) => {
   const tenantId = process.env.ENTRA_TENANT_ID;
