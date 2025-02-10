@@ -1,5 +1,5 @@
 {
-  "name": "my-turborepo",
+  "name": "2mas-mono",
   "private": true,
   "scripts": {
     "build": "turbo build",
