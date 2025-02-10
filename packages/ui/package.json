@@ -5,7 +5,8 @@
   "exports": {
     "./button": "./src/button.tsx",
     "./card": "./src/card.tsx",
-    "./code": "./src/code.tsx"
+    "./code": "./src/code.tsx",
+    "./login-link": "./src/login-link.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -23,6 +24,7 @@
     "typescript": "5.7.3"
   },
   "dependencies": {
+    "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   }
