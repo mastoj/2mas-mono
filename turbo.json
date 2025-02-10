@@ -6,7 +6,13 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**"],
-      "env": ["AUTH_DOMAIN"]
+      "env": [
+        "AUTH_DOMAIN",
+        "ENTRA_CLIENT_ID",
+        "ENTRA_TENANT_ID",
+        "ENTRA_CLIENT_SECRET",
+        "APP_DOMAIN"
+      ]
     },
     "lint": {
       "dependsOn": ["^lint"]
