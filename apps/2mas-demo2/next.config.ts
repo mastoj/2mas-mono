@@ -4,7 +4,7 @@ console.log("==> Auth Domain:", process.env.AUTH_DOMAIN);
 
 const nextConfig: NextConfig = {
   /* config options here */
-  assetPrefix: "/2mas-demo-static",
+  assetPrefix: "/2mas-demo2-static",
   async rewrites() {
     return [
       {
@@ -18,14 +18,6 @@ const nextConfig: NextConfig = {
       {
         source: "/logout",
         destination: `${process.env.AUTH_DOMAIN}/logout`,
-      },
-      {
-        source: "/demo2/:path*",
-        destination: `${process.env.DEMO2_DOMAIN}/:path*`,
-      },
-      {
-        source: "/2mas-demo2-static/:path*",
-        destination: `${process.env.DEMO2_DOMAIN}/2mas-demo2-static/:path*`,
       },
     ];
   },

@@ -11,7 +11,8 @@
         "ENTRA_CLIENT_ID",
         "ENTRA_TENANT_ID",
         "ENTRA_CLIENT_SECRET",
-        "APP_DOMAIN"
+        "APP_DOMAIN",
+        "DEMO2_DOMAIN"
       ]
     },
     "lint": {

@@ -58,7 +58,7 @@ importers:
         specifier: ^5
         version: 5.7.3
 
-  apps/auth:
+  apps/2mas-demo2:
     dependencies:
       next:
         specifier: 15.1.6
@@ -98,13 +98,10 @@ importers:
         specifier: ^5
         version: 5.7.3
 
-  apps/docs:
+  apps/auth:
     dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
       next:
-        specifier: ^15.1.6
+        specifier: 15.1.6
         version: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
@@ -113,63 +110,32 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
     devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
+      '@eslint/eslintrc':
+        specifier: ^3
+        version: 3.2.0
       '@types/node':
-        specifier: ^22
-        version: 22.13.0
+        specifier: ^20
+        version: 20.17.17
       '@types/react':
-        specifier: 19.0.8
+        specifier: ^19
         version: 19.0.8
       '@types/react-dom':
-        specifier: 19.0.3
+        specifier: ^19
         version: 19.0.3(@types/react@19.0.8)
       eslint:
-        specifier: ^9.19.0
+        specifier: ^9
         version: 9.19.0(jiti@1.21.7)
+      eslint-config-next:
+        specifier: 15.1.6
+        version: 15.1.6(eslint@9.19.0(jiti@1.21.7))(typescript@5.7.3)
+      postcss:
+        specifier: ^8
+        version: 8.5.1
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.17(ts-node@10.9.2(@types/node@20.17.17)(typescript@5.7.3))
       typescript:
-        specifier: 5.7.3
-        version: 5.7.3
-
-  apps/web:
-    dependencies:
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      next:
-        specifier: ^15.1.6
-        version: 15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      react:
-        specifier: ^19.0.0
-        version: 19.0.0
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.0.0(react@19.0.0)
-    devDependencies:
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@types/node':
-        specifier: ^22
-        version: 22.13.0
-      '@types/react':
-        specifier: 19.0.8
-        version: 19.0.8
-      '@types/react-dom':
-        specifier: 19.0.3
-        version: 19.0.3(@types/react@19.0.8)
-      eslint:
-        specifier: ^9.19.0
-        version: 9.19.0(jiti@1.21.7)
-      typescript:
-        specifier: 5.7.3
+        specifier: ^5
         version: 5.7.3
 
   packages/eslint-config:
@@ -1330,6 +1296,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
