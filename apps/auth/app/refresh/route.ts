@@ -10,7 +10,7 @@ type AuthResponse = {
 const getTokens = async (refreshToken: string): Promise<AuthResponse> => {
   const tenantId = process.env.ENTRA_TENANT_ID;
   const clientId = process.env.ENTRA_CLIENT_ID;
-  const clientSecret = process.env.ENTRA_CLIENT_SECRET;
+  const clientSecret = process.env.ENTRA_CLIENT_SECRET!;
   const url = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
 
   const contentType = "application/x-www-form-urlencoded";
@@ -22,8 +22,11 @@ const getTokens = async (refreshToken: string): Promise<AuthResponse> => {
     "offline_access",
   ].join(" ");
   const urlEncodedScope = encodeURIComponent(scope);
+  const urlEncodedSecret = encodeURIComponent(clientSecret);
 
-  const body = `client_id=${clientId}&scope=${urlEncodedScope}&refresh_token=${refreshToken}&grant_type=${grantType}&client_secret=${clientSecret}`;
+  const body = `client_id=${clientId}&scope=${urlEncodedScope}&refresh_token=${refreshToken}&grant_type=${grantType}&client_secret=${urlEncodedSecret}`;
+
+  console.log("==> Body: ", body);
 
   const response = await fetch(url, {
     method: "POST",
@@ -45,9 +48,13 @@ const getTokens = async (refreshToken: string): Promise<AuthResponse> => {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const refreshToken = body.refreshToken;
+  console.log("==> Refresh Token:", refreshToken);
   if (!refreshToken) {
-    return NextResponse.redirect("/login");
+    return NextResponse.json(
+      { error: "No refresh token provided" },
+      { status: 400 }
+    );
   }
-  const tokens = await getTokens(refreshToken.value);
+  const tokens = await getTokens(refreshToken);
   return NextResponse.json(tokens);
 }

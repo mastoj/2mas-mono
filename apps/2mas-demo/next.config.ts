@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
         destination: `${process.env.AUTH_DOMAIN}/logout/:path*`,
       },
       {
+        source: "/refresh/:path*",
+        destination: `${process.env.AUTH_DOMAIN}/refresh/:path*`,
+      },
+      {
         source: "/demo2/:path*",
         destination: `${process.env.DEMO2_DOMAIN}/:path*`,
       },
