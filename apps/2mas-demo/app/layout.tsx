@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { LoginLink, LogoutLink } from "@repo/ui/login-link";
+import { LoginLink } from "@repo/ui/login-link";
+import { LogoutLink } from "@repo/ui/logout-link";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
