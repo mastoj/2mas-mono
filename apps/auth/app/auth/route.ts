@@ -68,15 +68,20 @@ export async function GET(req: NextRequest) {
   const stateValue = JSON.parse(Buffer.from(state, "base64").toString());
   console.log("==> State:", stateValue);
   const response = NextResponse.redirect(stateValue.returnUrl);
+  const domain =
+    req.nextUrl.origin.indexOf("localhost") > -1 ? undefined : "2mas.xyz";
   response.cookies.set("access_token", tokens.accessToken, {
     httpOnly: true,
     maxAge: tokens.expiresIn,
+    domain,
   });
   response.cookies.set("refresh_token", tokens.refreshToken, {
     httpOnly: true,
+    domain,
   });
   response.cookies.set("id_token", tokens.idToken, {
     httpOnly: true,
+    domain,
   });
 
   return response;
