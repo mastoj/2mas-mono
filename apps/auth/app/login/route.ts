@@ -8,7 +8,7 @@ const getLoginUrl = (returnUrl: string) => {
   const clientId = process.env.ENTRA_CLIENT_ID;
   const state = { returnUrl };
   const base64State = Buffer.from(JSON.stringify(state)).toString("base64");
-  const redirectUri = `${process.env.AUTH_DOMAIN}/auth`;
+  const redirectUri = `${process.env.APP_DOMAIN}/auth`;
   const scope = [
     "https://graph.microsoft.com/mail.read",
     "openid",

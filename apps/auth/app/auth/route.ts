@@ -10,7 +10,7 @@ type AuthResponse = {
 const getTokens = async (code: string): Promise<AuthResponse> => {
   const tenantId = process.env.ENTRA_TENANT_ID;
   const clientId = process.env.ENTRA_CLIENT_ID;
-  const redirectUri = `${process.env.AUTH_DOMAIN}/auth`;
+  const redirectUri = `${process.env.APP_DOMAIN}/auth`;
   const clientSecret = process.env.ENTRA_CLIENT_SECRET;
 
   // POST /{tenant}/oauth2/v2.0/token HTTP/1.1
