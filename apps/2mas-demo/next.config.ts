@@ -14,8 +14,8 @@ const nextConfig: NextConfig = {
         destination: `${process.env.AUTH_DOMAIN}/login`,
       },
       {
-        source: "/logout",
-        destination: `${process.env.AUTH_DOMAIN}/logout`,
+        source: "/logout/:path*",
+        destination: `${process.env.AUTH_DOMAIN}/logout/:path*`,
       },
       {
         source: "/demo2/:path*",
