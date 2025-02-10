@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
+import { LoginLink } from "@repo/ui/login-link";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { cookies } from "next/headers";
@@ -56,7 +57,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const appDomain = process.env.APP_DOMAIN;
+  const appDomain = process.env.APP_DOMAIN!;
 
   return (
     <html lang="en">
@@ -66,12 +67,13 @@ export default function RootLayout({
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
           <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
             <h1>DEMO 1</h1>
-            <a
+            <LoginLink appDomain={appDomain} />
+            {/* <a
               href={`/login?returnUrl=${appDomain}/`}
               className="px-4 py-2 bg-green-400"
             >
               Login
-            </a>
+            </a> */}
             <a href="/" className="px-4 py-2 bg-green-400">
               Go to home
             </a>
