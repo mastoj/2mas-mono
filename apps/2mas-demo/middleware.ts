@@ -10,6 +10,6 @@ export const middleware = withAuth(async (request: NextRequest) => {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    "/((?!api|_next/static|sw.js|2mas-demo-static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
+    "/((?!api|_next/static|sw.js|logout|login|refresh|2mas-demo-static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };
