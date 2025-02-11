@@ -46,6 +46,8 @@ const getTokens = async (code: string): Promise<AuthResponse> => {
 
 export async function GET(req: NextRequest) {
   const state = req.nextUrl.searchParams.get("state")!;
+  console.log("==> Logging out callback: ", state);
+
   const stateValue = JSON.parse(Buffer.from(state, "base64").toString());
   console.log("==> State:", stateValue);
   const response = NextResponse.redirect(stateValue.returnUrl);

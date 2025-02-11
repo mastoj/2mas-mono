@@ -9,13 +9,14 @@ const getLogoutUrl = (returnUrl: string) => {
   const base64State = Buffer.from(JSON.stringify(state)).toString("base64");
   const redirectUri = `${process.env.APP_DOMAIN}/logout/callback`;
 
-  const url = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/logout?post_logout_redirect_uri${redirectUri}&state=${base64State}`;
+  const url = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/logout?post_logout_redirect_uri=${redirectUri}&state=${base64State}`;
 
   return url;
 };
 
 export async function GET(req: NextRequest) {
   const appDomain = process.env.APP_DOMAIN;
+  console.log("==> Logging out: ", req.nextUrl.searchParams.get("returnUrl"));
   const returnUrl =
     req.nextUrl.searchParams.get("returnUrl") || `${appDomain}/`;
   return NextResponse.redirect(getLogoutUrl(returnUrl));

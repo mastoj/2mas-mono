@@ -50,14 +50,6 @@ export default function RootLayout({
                   Sign out
                 </SignOutButton>
               </SignedIn>
-              {/* <LoginLink appDomain={appDomain} />
-              <LogoutLink appDomain={appDomain} /> */}
-              {/* <a
-              href={`/login?returnUrl=${appDomain}/`}
-              className="px-4 py-2 bg-green-400"
-            >
-              Login
-            </a> */}
               <a href="/" className="px-4 py-2 bg-green-400">
                 Go to home
               </a>

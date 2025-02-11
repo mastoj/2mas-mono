@@ -10,7 +10,7 @@ export const UserInfo = () => {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 max-w-screen-md overflow-x-auto">
       <h2>User Info</h2>
       <div>Authenticated: {authData.isAuthenticated.toString()}</div>
       <div>Roles: {authData.roles.join(", ")}</div>
