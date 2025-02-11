@@ -7,7 +7,7 @@ const getLogoutUrl = (returnUrl: string) => {
   const tenantId = process.env.ENTRA_TENANT_ID;
   const state = { returnUrl };
   const base64State = Buffer.from(JSON.stringify(state)).toString("base64");
-  const redirectUri = `${process.env.APP_DOMAIN}/logout/callback`;
+  const redirectUri = `${process.env.APP_DOMAIN}/auth/logout/callback`;
 
   const url = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/logout?post_logout_redirect_uri=${redirectUri}&state=${base64State}`;
 

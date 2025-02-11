@@ -15,7 +15,7 @@ export const getEntraConfig = (): AuthConfig => {
   return {
     tenantId: tenantId,
     clientId: process.env.ENTRA_CLIENT_ID!,
-    redirectUri: `${process.env.APP_DOMAIN}/login/callback`,
+    redirectUri: `${process.env.APP_DOMAIN}/auth/login/callback`,
     clientSecret: process.env.ENTRA_CLIENT_SECRET!,
     url: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
     scopes,

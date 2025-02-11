@@ -11,7 +11,7 @@ export const SignOutButton = ({
 }: PropsWithChildren<SignOutButtonProps>) => {
   console.log("==> SignOutButton:", children, className);
   return (
-    <a href="/logout" className={"bg-red-500 text-black p-2 " + className}>
+    <a href="/auth/logout" className={"bg-red-500 text-black p-2 " + className}>
       {children}
     </a>
   );

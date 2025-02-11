@@ -6,16 +6,8 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "/login/:path*",
-        destination: `${process.env.AUTH_DOMAIN}/login/:path*`,
-      },
-      {
-        source: "/logout/:path*",
-        destination: `${process.env.AUTH_DOMAIN}/logout/:path*`,
-      },
-      {
-        source: "/refresh/:path*",
-        destination: `${process.env.AUTH_DOMAIN}/refresh/:path*`,
+        source: "/auth/:path*",
+        destination: `${process.env.AUTH_DOMAIN}/:path*`,
       },
     ];
   },

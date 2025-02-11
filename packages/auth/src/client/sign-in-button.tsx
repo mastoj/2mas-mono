@@ -10,7 +10,10 @@ export const SignInButton = ({
   className,
 }: PropsWithChildren<SignInButtonProps>) => {
   return (
-    <a href="/login" className={"bg-green-500 text-black p-2 " + className}>
+    <a
+      href="/auth/login"
+      className={"bg-green-500 text-black p-2 " + className}
+    >
       {children}
     </a>
   );

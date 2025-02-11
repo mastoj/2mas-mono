@@ -10,7 +10,7 @@ export const LoginLink = ({ appDomain }: Props) => {
   const pathname = usePathname();
   return (
     <a
-      href={`/login?returnUrl=${appDomain}/${pathname}`}
+      href={`/auth/login?returnUrl=${appDomain}/${pathname}`}
       className="px-4 py-2 bg-green-400"
     >
       Login

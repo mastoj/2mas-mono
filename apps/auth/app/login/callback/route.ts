@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
   );
   const code = req.nextUrl.searchParams.get("code");
   if (!code) {
-    return NextResponse.redirect("/login");
+    return NextResponse.redirect(`${process.env.APP_DOMAIN}/auth/login`);
   }
   const tokens = await exchangeCodeForTokens(code);
   const state = req.nextUrl.searchParams.get("state")!;
