@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import "server-only";
+import { setCookies } from "./server";
 
 export type Middleware = (
   request: NextRequest
@@ -15,7 +17,12 @@ const refreshTokenMiddleware = async (req: NextRequest) => {
     const tokens = await response.json();
     console.log("==> Tokens:", tokens.accessToken, req.nextUrl.pathname);
 
-    return tokens;
+    return tokens as {
+      accessToken: string;
+      refreshToken: string;
+      idToken: string;
+      expiresIn: number;
+    };
   }
   return null;
 };
@@ -25,23 +32,7 @@ export const withAuth =
     const response = await middleware(request);
     const tokens = await refreshTokenMiddleware(request);
     if (tokens) {
-      const domain =
-        request.nextUrl.origin.indexOf("localhost") > -1
-          ? undefined
-          : "2mas.xyz";
-      response.cookies.set("access_token", tokens.accessToken, {
-        httpOnly: true,
-        maxAge: tokens.expiresIn,
-        domain,
-      });
-      response.cookies.set("refresh_token", tokens.refreshToken, {
-        httpOnly: true,
-        domain,
-      });
-      response.cookies.set("id_token", tokens.idToken, {
-        httpOnly: true,
-        domain,
-      });
+      setCookies(tokens, response, request.nextUrl.origin);
     }
     return response;
   };

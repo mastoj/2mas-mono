@@ -1,3 +1,4 @@
+import { updateTokens } from "@repo/auth/server";
 import { NextRequest, NextResponse } from "next/server";
 
 type AuthResponse = {
@@ -48,13 +49,12 @@ const getTokens = async (refreshToken: string): Promise<AuthResponse> => {
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const refreshToken = body.refreshToken;
-  console.log("==> Refresh Token:", refreshToken);
   if (!refreshToken) {
     return NextResponse.json(
       { error: "No refresh token provided" },
       { status: 400 }
     );
   }
-  const tokens = await getTokens(refreshToken);
+  const tokens = await updateTokens(refreshToken);
   return NextResponse.json(tokens);
 }
