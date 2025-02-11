@@ -19,5 +19,7 @@ export async function GET(req: NextRequest) {
   console.log("==> Logging out: ", req.nextUrl.searchParams.get("returnUrl"));
   const returnUrl =
     req.nextUrl.searchParams.get("returnUrl") || `${appDomain}/`;
-  return NextResponse.redirect(getLogoutUrl(returnUrl));
+  const logoutUrl = getLogoutUrl(returnUrl);
+  console.log("==> Logging out entra url: ", logoutUrl);
+  return NextResponse.redirect(logoutUrl);
 }
