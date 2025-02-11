@@ -29,8 +29,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const appDomain = process.env.APP_DOMAIN!;
-
   return (
     <html lang="en">
       <body
@@ -50,15 +48,15 @@ export default function RootLayout({
                   Sign out
                 </SignOutButton>
               </SignedIn>
-              <a href="/" className="px-4 py-2 bg-green-400">
+              <a href="/" className="px-4 py-2 bg-green-400 text-black">
                 Go to home
               </a>
-              <a href="/demo2" className="px-4 py-2 bg-green-400">
+              <a href="/demo2" className="px-4 py-2 bg-green-400 text-black">
                 Go to demo2
               </a>
-
               <UserInfo />
-              {children}
+
+              <div className="p-8 bg-rose-400 rounded">{children}</div>
             </main>
           </div>
         </AuthProvider>
