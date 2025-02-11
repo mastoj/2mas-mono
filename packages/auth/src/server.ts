@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import "server-only";
 import { getEntraConfig } from "./config";
 import { Auth, Tokens } from "./types";
+import { getAuthData } from "./utils";
 
 const getTokensFromCookies = (cookies: ReadonlyRequestCookies) => {
   const accessToken = cookies.get("accessToken");
@@ -17,41 +18,15 @@ const getTokensFromCookies = (cookies: ReadonlyRequestCookies) => {
   };
 };
 
-const decodeJwtAccessToken = (accessToken: string) => {
-  const base64Url = accessToken.split(".")[1];
-  if (!base64Url) {
-    return null;
-  }
-  const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split("")
-      .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-      .join("")
-  );
-  return JSON.parse(jsonPayload);
-};
-
 export const auth = async (): Promise<Auth | null> => {
   const cookieJar = await cookies();
   const tokens = getTokensFromCookies(cookieJar);
   const isAuthenticated =
     tokens.accessToken && tokens.refreshToken && tokens.idToken;
-  if (!isAuthenticated || !tokens.accessToken) {
+  if (!isAuthenticated || !tokens.accessToken || !tokens.idToken) {
     return { isAuthenticated: false };
   }
-  const accessJwt = decodeJwtAccessToken(tokens.accessToken);
-  const idJwt = tokens.idToken ? decodeJwtAccessToken(tokens.idToken) : null;
-  const name = accessJwt?.name || idJwt?.name || "Unknown";
-  const username = accessJwt?.preferred_username || idJwt?.preferred_username;
-  const roles = accessJwt?.roles || idJwt?.roles || [];
-  return {
-    accessToken: tokens.accessToken,
-    isAuthenticated: true,
-    name,
-    username,
-    roles,
-  };
+  return getAuthData(tokens.accessToken, tokens.idToken);
 };
 
 export const isInRole = (auth: Auth, role: string) =>
@@ -64,7 +39,6 @@ export const setCookies = (
 ) => {
   const domain = origin.indexOf("localhost") > -1 ? undefined : "2mas.xyz";
   response.cookies.set("access_token", tokens.accessToken, {
-    httpOnly: true,
     maxAge: tokens.expiresIn,
     domain,
   });
@@ -73,12 +47,11 @@ export const setCookies = (
     domain,
   });
   response.cookies.set("id_token", tokens.idToken, {
-    httpOnly: true,
     domain,
   });
 };
 
-export const makeExchangeRequest = async (
+const makeExchangeRequest = async (
   url: string,
   body: string
 ): Promise<Tokens> => {
@@ -110,7 +83,7 @@ export const exchangeCodeForTokens = async (code: string): Promise<Tokens> => {
 };
 
 export const updateTokens = async (refreshToken: string): Promise<Tokens> => {
-  const { clientId, clientSecret, redirectUri, url, scopes } = getEntraConfig();
+  const { clientId, clientSecret, url, scopes } = getEntraConfig();
   const grantType = "refresh_token";
   const scope = scopes.join(" ");
   const urlEncodedScope = encodeURIComponent(scope);
