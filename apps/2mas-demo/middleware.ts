@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 export const middleware = withAuth(async (request: NextRequest) => {
+  console.log("==> Middleware: ", request.nextUrl.pathname);
   return NextResponse.next();
 });
 
