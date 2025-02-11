@@ -19,6 +19,9 @@ const getTokensFromCookies = (cookies: ReadonlyRequestCookies) => {
 
 const decodeJwtAccessToken = (accessToken: string) => {
   const base64Url = accessToken.split(".")[1];
+  if (!base64Url) {
+    return null;
+  }
   const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
   const jsonPayload = decodeURIComponent(
     atob(base64)
@@ -34,12 +37,10 @@ export const auth = async (): Promise<Auth | null> => {
   const tokens = getTokensFromCookies(cookieJar);
   const isAuthenticated =
     tokens.accessToken && tokens.refreshToken && tokens.idToken;
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !tokens.accessToken) {
     return { isAuthenticated: false };
   }
-  const accessJwt = tokens.accessToken
-    ? decodeJwtAccessToken(tokens.accessToken)
-    : null;
+  const accessJwt = decodeJwtAccessToken(tokens.accessToken);
   const idJwt = tokens.idToken ? decodeJwtAccessToken(tokens.idToken) : null;
   const name = accessJwt?.name || idJwt?.name || "Unknown";
   const username = accessJwt?.preferred_username || idJwt?.preferred_username;
