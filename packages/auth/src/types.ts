@@ -20,7 +20,8 @@ export type Tokens = {
 export type AuthConfig = {
   tenantId: string;
   clientId: string;
-  clientSecret: string;
+  useOIDC: boolean;
+  getClientSecret: () => Promise<string>;
   redirectUri: string;
   url: string;
   scopes: string[];

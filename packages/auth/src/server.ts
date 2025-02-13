@@ -96,10 +96,12 @@ const makeExchangeRequest = async (
 };
 
 export const exchangeCodeForTokens = async (code: string): Promise<Tokens> => {
-  const { clientId, clientSecret, redirectUri, url, scopes } = getEntraConfig();
+  const { clientId, getClientSecret, redirectUri, url, scopes } =
+    getEntraConfig();
   const grantType = "authorization_code";
   const scope = scopes.join(" ");
   const urlEncodedScope = encodeURIComponent(scope);
+  const clientSecret = await getClientSecret();
 
   const body = `client_id=${clientId}&scope=${urlEncodedScope}&code=${code}&redirect_uri=${redirectUri}&grant_type=${grantType}&client_secret=${clientSecret}`;
   console.log("==> Body:", body);
@@ -107,7 +109,9 @@ export const exchangeCodeForTokens = async (code: string): Promise<Tokens> => {
 };
 
 export const updateTokens = async (refreshToken: string): Promise<Tokens> => {
-  const { clientId, clientSecret, url, scopes } = getEntraConfig();
+  const { clientId, getClientSecret, url, scopes } = getEntraConfig();
+  const clientSecret = await getClientSecret();
+
   const grantType = "refresh_token";
   const scope = scopes.join(" ");
   const urlEncodedScope = encodeURIComponent(scope);
