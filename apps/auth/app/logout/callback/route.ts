@@ -1,4 +1,4 @@
-import { clearCookies } from "@repo/auth/server";
+import { clearCookies } from "@repo/auth/cookies";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

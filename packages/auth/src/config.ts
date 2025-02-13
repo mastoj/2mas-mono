@@ -1,5 +1,3 @@
-import { ClientAssertionCredential } from "@azure/identity";
-import { getVercelOidcToken } from "@vercel/functions/oidc";
 import { AuthConfig } from "./types";
 
 export const accessCookieName = "access_token";
@@ -16,28 +14,14 @@ export const getEntraConfig = (): AuthConfig => {
     "offline_access",
   ];
   const useOIDC = process.env.ENTRA_USE_OIDC === "true";
-  const getSecret = async () => {
-    if (!useOIDC) {
-      return process.env.ENTRA_CLIENT_SECRET!;
-    } else {
-      const credentialsProvider = new ClientAssertionCredential(
-        tenantId,
-        clientId,
-        getVercelOidcToken
-      );
-      const token = await credentialsProvider.getToken(
-        process.env.ENTRA_OIDC_SCOPE!
-      );
-      return token.token;
-    }
-  };
 
   return {
     tenantId: tenantId,
     clientId: clientId,
     useOIDC: useOIDC,
+    entraIdScope: process.env.ENTRA_OIDC_SCOPE,
+    clientSecret: process.env.ENTRA_CLIENT_SECRET,
     redirectUri: `${process.env.APP_DOMAIN}/auth/login/callback`,
-    getClientSecret: getSecret,
     url: `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`,
     scopes,
   };

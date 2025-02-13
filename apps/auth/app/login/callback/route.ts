@@ -1,4 +1,5 @@
-import { exchangeCodeForTokens, setCookies } from "@repo/auth/server";
+import { setCookies } from "@repo/auth/cookies";
+import { exchangeCodeForTokens } from "@repo/auth/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {

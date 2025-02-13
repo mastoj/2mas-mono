@@ -6,6 +6,7 @@
     "./middleware": "./src/middleware.ts",
     "./server": "./src/server.ts",
     "./types": "./src/types.ts",
+    "./cookies": "./src/cookies.ts",
     "./client/hooks": "./src/client/hooks.tsx",
     "./client/provider": "./src/client/provider.tsx",
     "./client/sign-in-button": "./src/client/sign-in-button.tsx",

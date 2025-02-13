@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import "server-only";
-import { setCookies } from "./server";
+import { setCookies } from "./cookies";
 
 export type Middleware = (
   request: NextRequest

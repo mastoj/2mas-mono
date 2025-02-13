@@ -21,7 +21,8 @@ export type AuthConfig = {
   tenantId: string;
   clientId: string;
   useOIDC: boolean;
-  getClientSecret: () => Promise<string>;
+  entraIdScope?: string;
+  clientSecret?: string;
   redirectUri: string;
   url: string;
   scopes: string[];
