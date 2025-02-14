@@ -26,4 +26,5 @@ export type AuthConfig = {
   redirectUri: string;
   url: string;
   scopes: string[];
+  authority: string;
 };

@@ -7,6 +7,8 @@
     "./server": "./src/server.ts",
     "./types": "./src/types.ts",
     "./cookies": "./src/cookies.ts",
+    "./msal": "./src/msal.ts",
+    "./config": "./src/config.ts",
     "./client/hooks": "./src/client/hooks.tsx",
     "./client/provider": "./src/client/provider.tsx",
     "./client/sign-in-button": "./src/client/sign-in-button.tsx",
@@ -32,6 +34,7 @@
   },
   "dependencies": {
     "@azure/identity": "^4.6.0",
+    "@azure/msal-node": "^3.2.2",
     "@vercel/functions": "^2.0.0",
     "js-cookie": "^3.0.5",
     "next": "15.1.6",

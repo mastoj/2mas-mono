@@ -1,5 +1,6 @@
+import { getEntraConfig } from "@repo/auth/config";
+import { getAuthCodeUrl, getPublicClientApplication } from "@repo/auth/msal";
 import { NextRequest, NextResponse } from "next/server";
-import { getEntraConfig } from "../../../../packages/auth/src/config";
 
 // Docs: https://learn.microsoft.com/en-us/entra/identity-platform/v2-oauth2-auth-code-flow
 
@@ -18,7 +19,12 @@ const getLoginUrl = (returnUrl: string) => {
 
 export async function GET(req: NextRequest) {
   const appDomain = process.env.APP_DOMAIN;
-  const returnUrl =
-    req.nextUrl.searchParams.get("returnUrl") || `${appDomain}/`;
-  return NextResponse.redirect(getLoginUrl(returnUrl));
+  // const returnUrl =
+  //   req.nextUrl.searchParams.get("returnUrl") || `${appDomain}/`;
+  const config = getEntraConfig();
+  const authUrl = await getAuthCodeUrl(
+    getPublicClientApplication(config),
+    config
+  );
+  return NextResponse.redirect(authUrl);
 }

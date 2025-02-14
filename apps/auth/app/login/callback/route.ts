@@ -1,5 +1,6 @@
+import { getEntraConfig } from "@repo/auth/config";
 import { setCookies } from "@repo/auth/cookies";
-import { exchangeCodeForTokens } from "@repo/auth/server";
+import { getPublicClientApplication, getTokens } from "@repo/auth/msal";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -11,11 +12,16 @@ export async function GET(req: NextRequest) {
   if (!code) {
     return NextResponse.redirect(`${process.env.APP_DOMAIN}/auth/login`);
   }
-  const tokens = await exchangeCodeForTokens(code);
+  const pca = getPublicClientApplication(getEntraConfig());
   const state = req.nextUrl.searchParams.get("state")!;
+  const tokens = await getTokens(pca, getEntraConfig(), code, state);
+  if (!tokens) {
+    return NextResponse.redirect(`${process.env.APP_DOMAIN}/auth/login`);
+  }
+  // // const tokens = await exchangeCodeForTokens(code);
   const stateValue = JSON.parse(Buffer.from(state, "base64").toString());
   const response = NextResponse.redirect(stateValue.returnUrl);
-  console.log("==> Logging in callback: ", stateValue, tokens);
+  console.log("==> Logging in callback: ", tokens);
   setCookies(tokens, response, req.nextUrl.origin);
   return response;
 }
