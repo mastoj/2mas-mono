@@ -1,4 +1,5 @@
 import { getEntraConfig } from "@repo/auth/config";
+import { setPkceVerifierCookie, setReturnUrlCookie } from "@repo/auth/cookies";
 import { getAuthCodeUrl, getPublicClientApplication } from "@repo/auth/msal";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -19,12 +20,17 @@ const getLoginUrl = (returnUrl: string) => {
 
 export async function GET(req: NextRequest) {
   const appDomain = process.env.APP_DOMAIN;
-  // const returnUrl =
-  //   req.nextUrl.searchParams.get("returnUrl") || `${appDomain}/`;
+  const returnUrl =
+    req.nextUrl.searchParams.get("returnUrl") || `${appDomain}/`;
+
   const config = getEntraConfig();
-  const authUrl = await getAuthCodeUrl(
+  const { authCodeUrl, pkceVerifier } = await getAuthCodeUrl(
     getPublicClientApplication(config),
     config
   );
-  return NextResponse.redirect(authUrl);
+  console.log("==> Logging in: ", authCodeUrl);
+  const response = NextResponse.redirect(authCodeUrl);
+  setPkceVerifierCookie(response, pkceVerifier, req.nextUrl.origin);
+  setReturnUrlCookie(response, returnUrl, req.nextUrl.origin);
+  return response;
 }

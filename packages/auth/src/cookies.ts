@@ -1,3 +1,4 @@
+import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextResponse } from "next/server";
 import { accessCookieName, idCookieName, refreshCookieName } from "./config";
 import { Tokens } from "./types";
@@ -36,4 +37,40 @@ export const clearCookies = (response: NextResponse, origin: string) => {
     domain,
     maxAge: -1,
   });
+};
+
+const PKCE_VERIFIER_COOKIE_NAME = "pkce_verifier";
+export const setPkceVerifierCookie = (
+  response: NextResponse,
+  pkce: string,
+  origin: string
+) => {
+  const domain = origin.indexOf("localhost") > -1 ? undefined : "2mas.xyz";
+  response.cookies.set(PKCE_VERIFIER_COOKIE_NAME, pkce, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    domain,
+  });
+};
+
+export const getPkceCookie = (cookies: RequestCookies) => {
+  return cookies.get(PKCE_VERIFIER_COOKIE_NAME)?.value;
+};
+
+const RETURN_URL_COOKIE_NAME = "returnUrl";
+export const setReturnUrlCookie = (
+  response: NextResponse,
+  returnUrl: string,
+  origin: string
+) => {
+  const domain = origin.indexOf("localhost") > -1 ? undefined : "2mas.xyz";
+  response.cookies.set(RETURN_URL_COOKIE_NAME, returnUrl, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    domain,
+  });
+};
+
+export const getReturnUrlCookie = (cookies: RequestCookies) => {
+  return cookies.get(RETURN_URL_COOKIE_NAME)?.value;
 };

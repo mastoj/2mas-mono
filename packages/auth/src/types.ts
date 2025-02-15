@@ -14,7 +14,7 @@ export type Tokens = {
   accessToken: string;
   refreshToken: string;
   idToken: string;
-  expiresIn: number;
+  expiresIn?: number;
 };
 
 export type AuthConfig = {
